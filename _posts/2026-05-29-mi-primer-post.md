@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Prueba"
-sábado
+title: "Mi primer post"
+date: 2026-05-29
 ---
 
-Hola mundo! 
+Hola mundo! Este es mi primer post.
