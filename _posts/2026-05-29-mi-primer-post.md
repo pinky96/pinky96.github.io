@@ -1,7 +1,7 @@
 ---
-layout: post
-title: "Mi primer post"
+layout: Investigación independiente sobre tecnología y sociedad
+title: "Soñamos en un mundo distópico?" 
 date: 2026-05-29
 ---
 
-Hola mundo! Este es mi primer post.
+Las inteligencias artesanales 
