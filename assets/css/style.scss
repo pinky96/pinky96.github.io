@@ -1,0 +1,27 @@
+---
+---
+
+@import "minima/skins/dark";
+@import "minima";
+
+/* Fuente más elegante */
+body {
+  font-family: "Georgia", serif;
+}
+
+/* Títulos con más personalidad */
+h1, h2, h3 {
+  letter-spacing: 1px;
+}
+
+/* Links con color personalizado */
+a {
+  color: #00e5ff;
+}
+
+/* Posts con más espacio y separación */
+.post-list li {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 1rem;
+}
