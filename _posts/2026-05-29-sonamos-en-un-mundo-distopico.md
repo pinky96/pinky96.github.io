@@ -8,9 +8,9 @@ title: "¿Soñamos en un mundo distópico?"
 date: 2026-05-29
 categorias: [reflexiones]
 resumen: "Primera señal del micelio: una pregunta para abrir este espacio de investigación sobre tecnología y sociedad."
-imagen: /assets/images/posts/sonamos-en-un-mundo-distopico.jpg
-imagen_alt: "Hilos blancos ramificados sobre fondo oscuro, como un micelio creciendo"
-imagen_credito: "Ilustración generada para Señales del Micelio"
+imagen: /assets/images/posts/alodeluz.jpeg
+imagen_alt: "11:20am"
+imagen_credito: "Foto: Pinky"
 ---
 
 ¿Soñamos en un mundo distópico?
