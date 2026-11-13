@@ -112,6 +112,7 @@ img {
   max-width: var(--ancho-maximo);
   margin: 0 auto;
   padding: calc(var(--espacio) * 2) var(--espacio) var(--espacio);
+   text-align: center;
 }
 
 .cabecera__titulo {
@@ -139,6 +140,7 @@ img {
   gap: calc(var(--espacio) * 1.2);
   font-family: var(--fuente-titulos);
   font-size: 0.95rem;
+   justify-content: center;
 }
 
 /* --- Efecto glitch ---------------------------------------------
