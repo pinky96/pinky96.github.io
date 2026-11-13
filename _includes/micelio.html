@@ -1,0 +1,23 @@
+<!-- =============================================================
+  micelio.html — divisor decorativo: hilos de micelio que se
+  ramifican, dibujados como SVG (líneas blancas finas).
+  Es puramente visual, por eso aria-hidden="true".
+  Se usa bajo la cabecera y sobre el pie de página.
+============================================================== -->
+<div class="micelio" aria-hidden="true">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- hilo principal: cruza todo el ancho con ondulaciones suaves -->
+    <path d="M0,30 C80,22 140,40 220,32 S360,18 460,30 S620,44 720,30 S880,16 980,30 S1140,40 1200,28"
+          fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+    <!-- ramificaciones: hifas que se desprenden del hilo principal -->
+    <path d="M220,32 C240,20 255,14 280,10" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+    <path d="M460,30 C480,42 500,50 530,54" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+    <path d="M720,30 C735,18 750,12 775,8"  fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+    <path d="M980,30 C1000,42 1020,48 1050,52" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+    <!-- nodos: puntos donde el micelio se encuentra -->
+    <circle cx="220" cy="32" r="2" fill="currentColor" opacity="0.6"/>
+    <circle cx="460" cy="30" r="2" fill="currentColor" opacity="0.6"/>
+    <circle cx="720" cy="30" r="2" fill="currentColor" opacity="0.6"/>
+    <circle cx="980" cy="30" r="2" fill="currentColor" opacity="0.6"/>
+  </svg>
+</div>

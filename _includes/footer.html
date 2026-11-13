@@ -1,0 +1,13 @@
+<!-- =============================================================
+  footer.html — pie de página del sitio.
+============================================================== -->
+<footer class="pie">
+  {%- include micelio.html -%}
+  <div class="pie__interior">
+    <p>{{ site.title }} · {{ site.description }}</p>
+    <p class="pie__nota">
+      Escrito por {{ site.autora }} ·
+      <a href="https://github.com/{{ site.github_username }}/pinky96.github.io">código fuente</a>
+    </p>
+  </div>
+</footer>

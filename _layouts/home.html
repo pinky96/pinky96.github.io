@@ -1,0 +1,50 @@
+---
+# ============================================================
+# home.html — la portada del sitio (lo que usa index.md).
+# Una sola columna, estilo bitácora: las entradas en orden
+# cronológico (la más nueva primero), cada una con su imagen
+# a ancho de columna, la fecha, el título y el resumen.
+# Este layout se envuelve dentro de default.html:
+layout: default
+# ============================================================
+---
+
+{%- comment -%} Texto opcional que venga de index.md (una bienvenida, por ejemplo) {%- endcomment -%}
+{{ content }}
+
+{%- if site.posts.size > 0 -%}
+
+<section class="indice" aria-label="Entradas del blog">
+  {%- comment -%}
+    "limit" respeta el número configurado en
+    _config.yml → entradas_en_portada.
+  {%- endcomment -%}
+  {%- for entrada in site.posts limit: site.entradas_en_portada -%}
+  <article class="indice__entrada">
+
+    {%- if entrada.imagen -%}
+    <a class="indice__enlace-imagen" href="{{ entrada.url | relative_url }}">
+      <img class="indice__imagen"
+           src="{{ entrada.imagen | relative_url }}"
+           alt="{{ entrada.imagen_alt | default: entrada.title }}"
+           loading="lazy">
+    </a>
+    {%- endif -%}
+
+    <p class="indice__fecha">{% include fecha.html fecha=entrada.date %}</p>
+
+    <h2 class="indice__titulo">
+      <a href="{{ entrada.url | relative_url }}">{{ entrada.title }}</a>
+    </h2>
+
+    {%- if entrada.resumen -%}
+    <p class="indice__resumen">{{ entrada.resumen }}</p>
+    {%- endif -%}
+
+  </article>
+  {%- endfor -%}
+</section>
+
+{%- else -%}
+  <p class="indice__vacio">Todavía no hay entradas publicadas. La primera está creciendo bajo tierra.</p>
+{%- endif -%}

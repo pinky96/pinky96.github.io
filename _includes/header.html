@@ -1,0 +1,25 @@
+<!-- =============================================================
+  header.html — cabecera del sitio: nombre (con efecto glitch al
+  pasar el cursor), lema y navegación principal.
+  Para agregar una página al menú, suma otro <a> en el <nav>.
+============================================================== -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+
+    {%- comment -%}
+      data-texto repite el nombre del sitio: el efecto glitch del CSS
+      usa ese atributo para dibujar las "copias" desplazadas.
+    {%- endcomment -%}
+    <a class="cabecera__titulo glitch" href="{{ '/' | relative_url }}" data-texto="{{ site.title }}">{{ site.title }}</a>
+
+    <p class="cabecera__lema">{{ site.lema }}</p>
+
+    <nav class="cabecera__nav" aria-label="Navegación principal">
+      <a href="{{ '/' | relative_url }}">Blog</a>
+      <a href="{{ '/sobre/' | relative_url }}">Sobre el proyecto</a>
+    </nav>
+
+  </div>
+
+  {%- include micelio.html -%}
+</header>

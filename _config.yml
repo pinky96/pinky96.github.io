@@ -1,51 +1,44 @@
-# Welcome to Jekyll!
+# =============================================================
+# Señales del Micelio — configuración general del sitio
+# =============================================================
+# Este archivo controla los datos globales del sitio. Jekyll lo lee
+# una sola vez al arrancar: si lo cambias, reinicia el servidor local
+# (bundle exec jekyll serve) para ver los cambios.
 #
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# Cualquier variable definida aquí queda disponible en las plantillas
+# como {{ site.nombre_de_la_variable }}.
+# -------------------------------------------------------------
 
+# --- Identidad del sitio -------------------------------------
 title: Señales del Micelio
-email: "" # aun no estoy segura
-description: Investigación independiente sobre tecnología y sociedad
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  pinky🚀
+description: Imágenes y escritos sobre tecnología, sociedad civil y otras señales
+lema: Bitácora que crece por debajo de la superficie
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
+# --- Direcciones ---------------------------------------------
+# url: dominio completo donde vive el sitio (sin barra final).
+# baseurl: subcarpeta, solo si el sitio NO está en la raíz del dominio.
+# Como este es un sitio de usuario (pinky96.github.io), baseurl va vacío.
+url: "https://pinky96.github.io"
+baseurl: ""
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# --- Autora y redes ------------------------------------------
+autora: Pinky
+github_username: pinky96
+
+# --- Estructura de las URLs de cada entrada ------------------
+# /blog/titulo-de-la-entrada/
+# (si cambias esto después de publicar, los enlaces viejos se rompen)
+permalink: /blog/:title/
+
+# --- Portada --------------------------------------------------
+# Cuántas entradas mostrar en la cuadrícula de la portada
+# (además de la entrada destacada).
+entradas_en_portada: 9
+
+# --- Archivos que Jekyll debe ignorar al construir el sitio ---
+exclude:
+  - README.md
+  - plantilla-entrada.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/

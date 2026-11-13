@@ -1,0 +1,60 @@
+---
+# ============================================================
+# post.html — plantilla de una entrada individual del blog.
+# Lee del front matter del post: title, date, imagen, imagen_alt,
+# imagen_credito, categorias y resumen.
+# ============================================================
+layout: default
+---
+
+<article class="entrada">
+
+  <header class="entrada__cabecera">
+    {%- if page.categorias and page.categorias.size > 0 -%}
+    <p class="entrada__categoria">{{ page.categorias | join: " / " }}</p>
+    {%- endif -%}
+
+    <h1 class="entrada__titulo">{{ page.title }}</h1>
+
+    <p class="entrada__fecha">
+      Publicado el {% include fecha.html fecha=page.date %}
+      {%- if page.autora %} por {{ page.autora }}{% endif %}
+    </p>
+  </header>
+
+  {%- comment -%} Imagen destacada, con su crédito si existe {%- endcomment -%}
+  {%- if page.imagen -%}
+  <figure class="entrada__figura">
+    <img src="{{ page.imagen | relative_url }}"
+         alt="{{ page.imagen_alt | default: page.title }}">
+    {%- if page.imagen_credito -%}
+    <figcaption>{{ page.imagen_credito }}</figcaption>
+    {%- endif -%}
+  </figure>
+  {%- endif -%}
+
+  {%- comment -%} Aquí entra el texto de la entrada escrito en Markdown {%- endcomment -%}
+  <div class="entrada__texto">
+    {{ content }}
+  </div>
+
+  {%- comment -%} Firma al final, como en una carta {%- endcomment -%}
+  <p class="entrada__firma">— {{ page.autora | default: site.autora }}</p>
+
+</article>
+
+{%- comment -%} Navegación entre entradas: anterior y siguiente {%- endcomment -%}
+<nav class="entrada__navegacion" aria-label="Más entradas">
+  {%- if page.previous -%}
+  <a class="entrada__anterior" href="{{ page.previous.url | relative_url }}">
+    <span>Entrada anterior</span>
+    {{ page.previous.title }}
+  </a>
+  {%- endif -%}
+  {%- if page.next -%}
+  <a class="entrada__siguiente" href="{{ page.next.url | relative_url }}">
+    <span>Entrada siguiente</span>
+    {{ page.next.title }}
+  </a>
+  {%- endif -%}
+</nav>

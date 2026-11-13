@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- =============================================================
+  default.html — esqueleto base de TODAS las páginas del sitio.
+  Los demás layouts (home, post, page) se "envuelven" dentro de este.
+  Aquí va solo lo que se repite siempre: <head>, cabecera y pie.
+  La variable "content" (entre llaves dobles, dentro de <main>)
+  es donde Jekyll inserta el contenido de la página mostrada.
+============================================================== -->
+<html lang="es">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <main class="contenido">
+      {{ content }}
+    </main>
+
+    {%- include footer.html -%}
+
+  </body>
+</html>

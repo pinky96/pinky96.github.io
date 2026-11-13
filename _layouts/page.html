@@ -1,0 +1,17 @@
+---
+# ============================================================
+# page.html — plantilla para páginas sueltas que no son entradas del blog
+# (Sobre el proyecto, 404, etc.).
+# ============================================================
+layout: default
+---
+
+<article class="pagina">
+  <header class="pagina__cabecera">
+    <h1 class="pagina__titulo">{{ page.title }}</h1>
+  </header>
+
+  <div class="pagina__texto">
+    {{ content }}
+  </div>
+</article>

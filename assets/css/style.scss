@@ -1,27 +1,477 @@
 ---
 ---
 
-@import "minima/skins/dark";
-@import "minima";
+/* =============================================================
+   Señales del Micelio — hoja de estilos
+   =============================================================
+   Las dos líneas de guiones de arriba le dicen a Jekyll que
+   procese este archivo (de .scss a .css). No las borres.
 
-/* Fuente más elegante */
+   ÍNDICE
+   1. Variables (colores, tipografía, espaciados) ← cambia aquí
+   2. Base (reset, cuerpo, enlaces, foco de teclado)
+   3. Cabecera y efecto glitch
+   4. Divisor de micelio
+   5. Portada (columna única, estilo bitácora)
+   6. Entrada individual
+   7. Páginas sueltas
+   8. Pie de página
+   9. Pantallas pequeñas (móvil)
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. VARIABLES — el lugar para ajustar la apariencia del sitio.
+   Cambiar un color aquí lo cambia en todo el sitio.
+   ------------------------------------------------------------- */
+:root {
+  /* Colores */
+  --fondo:        #12100b;  /* negro cálido: la tierra oscura donde crece el micelio */
+  --superficie:   #1c1913;  /* bloques de código y paneles, un paso más claro que el fondo */
+  --borde:        #332e22;  /* bordes e hilos sutiles (imágenes, separadores) */
+  --texto:        #f4f2ec;  /* blanco: texto principal */
+  --texto-tenue:  #8f8a7c;  /* gris cálido: fechas, créditos, metadatos */
+  --acento:       #ffd60a;  /* amarillo: enlaces y señales */
+  --acento-suave: rgba(255, 214, 10, 0.12);  /* amarillo translúcido para fondos de etiquetas */
+  --glitch-ambar: #ff9f1c;  /* segundo color del efecto glitch del título (ámbar) */
+
+  /* Tipografía */
+  --fuente-titulos: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --fuente-texto:   Georgia, "Times New Roman", serif;
+
+  /* Medidas */
+  --ancho-maximo: 1080px;  /* ancho máximo del contenido en pantallas grandes */
+  --ancho-lectura: 42rem;  /* ancho máximo del texto de una entrada (~70 caracteres) */
+  --espacio: 1.5rem;       /* unidad de espaciado base */
+  --radio: 4px;            /* redondeo de esquinas de las imágenes */
+}
+
+
+/* -------------------------------------------------------------
+   2. BASE
+   ------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "Georgia", serif;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;      /* 17px: cómodo para leer entradas largas */
+  line-height: 1.7;          /* las serifas respiran mejor con más interlineado */
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Títulos con más personalidad */
-h1, h2, h3 {
-  letter-spacing: 1px;
+h1, h2, h3, h4 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
 }
 
-/* Links con color personalizado */
 a {
-  color: #00e5ff;
+  color: var(--acento);
+  text-decoration: none;
 }
 
-/* Posts con más espacio y separación */
-.post-list li {
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #333;
-  padding-bottom: 1rem;
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Contorno visible al navegar con teclado (accesibilidad) */
+a:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Contenedor central de todo el contenido */
+.contenido {
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding: calc(var(--espacio) * 1.5) var(--espacio) calc(var(--espacio) * 3);
+}
+
+
+/* -------------------------------------------------------------
+   3. CABECERA Y EFECTO GLITCH
+   ------------------------------------------------------------- */
+.cabecera__interior {
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding: calc(var(--espacio) * 2) var(--espacio) var(--espacio);
+}
+
+.cabecera__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);  /* crece con la pantalla, entre 1.9 y 3.1rem */
+  color: var(--texto);
+  display: inline-block;
+  position: relative;
+}
+
+.cabecera__titulo:hover {
+  text-decoration: none;
+}
+
+.cabecera__lema {
+  color: var(--texto-tenue);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+.cabecera__nav {
+  margin-top: calc(var(--espacio) * 0.9);
+  display: flex;
+  gap: calc(var(--espacio) * 1.2);
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+}
+
+/* --- Efecto glitch ---------------------------------------------
+   Solo se activa al pasar el cursor por el nombre del sitio.
+   Funciona con dos copias del texto (::before y ::after) que leen
+   el atributo data-texto y se desplazan en direcciones opuestas. */
+.glitch::before,
+.glitch::after {
+  content: attr(data-texto);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;  /* las copias no interfieren con el clic */
+}
+
+.glitch:hover::before {
+  opacity: 0.8;
+  color: var(--acento);
+  animation: glitch-desplazar 0.3s steps(2) infinite;
+}
+
+.glitch:hover::after {
+  opacity: 0.8;
+  color: var(--glitch-ambar);
+  animation: glitch-desplazar 0.3s steps(2) infinite reverse;
+}
+
+@keyframes glitch-desplazar {
+  0%   { transform: translate(-2px, 1px);  clip-path: inset(10% 0 60% 0); }
+  50%  { transform: translate(2px, -1px);  clip-path: inset(50% 0 20% 0); }
+  100% { transform: translate(-1px, 2px);  clip-path: inset(30% 0 40% 0); }
+}
+
+/* Si la persona pidió reducir el movimiento en su sistema,
+   el glitch se apaga por respeto a esa preferencia. */
+@media (prefers-reduced-motion: reduce) {
+  .glitch:hover::before,
+  .glitch:hover::after {
+    animation: none;
+    opacity: 0;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* -------------------------------------------------------------
+   4. DIVISOR DE MICELIO
+   ------------------------------------------------------------- */
+.micelio {
+  color: var(--texto);  /* el SVG usa currentColor: hereda este color */
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding: 0 var(--espacio);
+}
+
+.micelio svg {
+  width: 100%;
+  height: 44px;
+  display: block;
+}
+
+
+/* -------------------------------------------------------------
+   5. PORTADA — columna única, estilo bitácora.
+   Cada entrada muestra su imagen a ancho de columna, la fecha,
+   el título y el resumen, una debajo de otra.
+   ------------------------------------------------------------- */
+.indice {
+  max-width: var(--ancho-lectura);
+  margin: 0 auto;
+}
+
+.indice__entrada {
+  padding: calc(var(--espacio) * 1.6) 0;
+}
+
+/* Hilo fino que separa una entrada de la siguiente */
+.indice__entrada + .indice__entrada {
+  border-top: 1px solid var(--borde);
+}
+
+.indice__imagen {
+  width: 100%;
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  margin-bottom: calc(var(--espacio) * 0.8);
+}
+
+.indice__fecha {
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  color: var(--texto-tenue);
+  margin-bottom: 0.3rem;
+}
+
+.indice__titulo {
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  margin-bottom: 0.5rem;
+}
+
+.indice__titulo a {
+  color: var(--texto);
+}
+
+.indice__titulo a:hover {
+  color: var(--acento);
+}
+
+.indice__resumen {
+  color: var(--texto);
+  opacity: 0.85;
+}
+
+.indice__vacio {
+  color: var(--texto-tenue);
+  text-align: center;
+  padding: calc(var(--espacio) * 3) 0;
+}
+
+
+/* -------------------------------------------------------------
+   6. ENTRADA INDIVIDUAL
+   ------------------------------------------------------------- */
+.entrada__cabecera {
+  max-width: var(--ancho-lectura);
+  margin: 0 auto calc(var(--espacio) * 1.5);
+}
+
+.entrada__categoria {
+  font-family: var(--fuente-titulos);
+  color: var(--acento);
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.entrada__titulo {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 0.8rem;
+}
+
+.entrada__fecha {
+  color: var(--texto-tenue);
+  font-size: 0.9rem;
+}
+
+.entrada__figura {
+  margin: 0 auto calc(var(--espacio) * 1.5);
+}
+
+.entrada__figura img {
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  width: 100%;
+}
+
+.entrada__figura figcaption {
+  color: var(--texto-tenue);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* El texto de la entrada: ancho de lectura cómodo */
+.entrada__texto {
+  max-width: var(--ancho-lectura);
+  margin: 0 auto;
+}
+
+.entrada__texto p,
+.entrada__texto ul,
+.entrada__texto ol,
+.entrada__texto blockquote {
+  margin-bottom: calc(var(--espacio) * 0.8);
+}
+
+.entrada__texto h2,
+.entrada__texto h3 {
+  margin-top: calc(var(--espacio) * 1.4);
+  margin-bottom: calc(var(--espacio) * 0.5);
+}
+
+.entrada__texto ul,
+.entrada__texto ol {
+  padding-left: 1.4rem;
+}
+
+.entrada__texto blockquote {
+  border-left: 2px solid var(--acento);
+  padding-left: var(--espacio);
+  color: var(--texto);
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* Imágenes dentro del cuerpo de la entrada */
+.entrada__texto img {
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  margin: var(--espacio) auto;
+}
+
+/* Código, por si una entrada incluye fragmentos técnicos */
+.entrada__texto code {
+  font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+
+.entrada__texto pre {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--espacio);
+  overflow-x: auto;
+  margin-bottom: calc(var(--espacio) * 0.8);
+}
+
+.entrada__texto pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Firma al final de cada entrada, como en una carta */
+.entrada__firma {
+  max-width: var(--ancho-lectura);
+  margin: calc(var(--espacio) * 1.2) auto 0;
+  font-family: var(--fuente-titulos);
+  color: var(--acento);
+}
+
+/* Navegación anterior / siguiente al final de cada entrada */
+.entrada__navegacion {
+  max-width: var(--ancho-lectura);
+  margin: calc(var(--espacio) * 2) auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio);
+  font-family: var(--fuente-titulos);
+}
+
+.entrada__navegacion a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 48%;
+}
+
+.entrada__navegacion span {
+  font-size: 0.8rem;
+  color: var(--texto-tenue);
+}
+
+.entrada__siguiente {
+  text-align: right;
+  margin-left: auto;
+}
+
+
+/* -------------------------------------------------------------
+   7. PÁGINAS SUELTAS (Sobre el proyecto, 404…)
+   ------------------------------------------------------------- */
+.pagina {
+  max-width: var(--ancho-lectura);
+  margin: 0 auto;
+}
+
+.pagina__titulo {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  margin-bottom: var(--espacio);
+}
+
+.pagina__texto p,
+.pagina__texto ul,
+.pagina__texto ol {
+  margin-bottom: calc(var(--espacio) * 0.8);
+}
+
+.pagina__texto ul,
+.pagina__texto ol {
+  padding-left: 1.4rem;
+}
+
+.pagina__texto h2,
+.pagina__texto h3 {
+  margin-top: calc(var(--espacio) * 1.4);
+  margin-bottom: calc(var(--espacio) * 0.5);
+}
+
+
+/* -------------------------------------------------------------
+   8. PIE DE PÁGINA
+   ------------------------------------------------------------- */
+.pie__interior {
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding: var(--espacio) var(--espacio) calc(var(--espacio) * 2);
+  color: var(--texto-tenue);
+  font-size: 0.9rem;
+}
+
+.pie__nota {
+  margin-top: 0.3rem;
+}
+
+
+/* -------------------------------------------------------------
+   9. PANTALLAS PEQUEÑAS
+   La cuadrícula ya es fluida; aquí solo se ajustan detalles.
+   ------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .cabecera__nav {
+    flex-wrap: wrap;
+    gap: calc(var(--espacio) * 0.7);
+  }
+
+  .entrada__navegacion {
+    flex-direction: column;
+  }
+
+  .entrada__navegacion a {
+    max-width: 100%;
+  }
+
+  .entrada__siguiente {
+    text-align: left;
+    margin-left: 0;
+  }
 }

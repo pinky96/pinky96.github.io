@@ -1,0 +1,13 @@
+{%- comment -%}
+  =============================================================
+  fecha.html — muestra una fecha en español: "29 de mayo de 2026".
+  Jekyll solo sabe escribir los meses en inglés, así que aquí los
+  traducimos a mano.
+
+  Se usa así desde cualquier plantilla:
+    {% include fecha.html fecha=page.date %}
+  =============================================================
+{%- endcomment -%}
+{%- assign mes_numero = include.fecha | date: "%-m" | minus: 1 -%}
+{%- assign meses = "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre" | split: "," -%}
+{{ include.fecha | date: "%-d" }} de {{ meses[mes_numero] }} de {{ include.fecha | date: "%Y" }}
